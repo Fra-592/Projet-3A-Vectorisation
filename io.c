@@ -6,7 +6,7 @@
 int ** get_image(void)
 {
   	// Ouverture du fichier
-	FILE * fBMP = fopen("/home/fra_592/Téléchargements/BMP/img/test_32x32.bmp", "rb+");
+	FILE * fBMP = fopen("/home/fra_592/Documents/Cours/2017/Projet_Algo/BMP/img/test_32x32.bmp", "rb+");
 	if(fBMP == NULL)
 	{
 		#ifdef DEBUG
