@@ -7,7 +7,11 @@ extern int imgWidth;
 
 int min(int x, int y)
 {
-	return((x < y) ? x : y);
+	if(x >= y)
+	{
+		return(y);
+	}
+	return(x);
 }
 
 
@@ -54,7 +58,7 @@ void transformee_distance(int **image, int **transformee)
 	int y;
 
 	//1ère passe
-	for(x = imgHeight - 1; x >= 0; x--)
+	for(x = 0; x < imgHeight; x++)
 	{
 		for(y = 0; y < imgWidth; y++)
 		{
@@ -70,7 +74,7 @@ void transformee_distance(int **image, int **transformee)
 	}
 
 	//2nde passe
-	for(x = 0; x < imgHeight; x++)
+	for(x = imgHeight - 1; x >= 0; x--)
 	{
 		for(y = imgWidth - 1; y >= 0; y--)
 		{

@@ -1,5 +1,4 @@
 #include "squelettisation.h"
-#include <stdio.h>
 
 extern int imgHeight;
 extern int imgWidth;
@@ -86,22 +85,22 @@ t_flag flags_NO(t_flag **flags, int x, int y)
 void squelettisation(int **transformee, t_flag **flags)
 {
 	int max;
-	int dist = 1;
+	int dist;
 	int x;
 	int y;
 
 	max = max_dist(transformee);
 	
-	//for(dist = 1; dist <= max; dist++)
-	//{
+	for(dist = 1; dist <= max; dist++)
+	{
 		// Actualisation des contours
 		for(x = 0; x < imgHeight; x++)
 		{
 			for(y = 0; y < imgWidth; y++)
 			{
-				if(transformee[x][y] == 0)
+				if(transformee[x][y] < dist && !(flags[x][y] & MULTIPLE))
 				{
-					flags[x][y] = flags[x][y] | FOND;
+					flags[x][y] = FOND;
 				}
 				else if(transformee[x][y] == dist)
 				{
@@ -120,12 +119,27 @@ void squelettisation(int **transformee, t_flag **flags)
 			for(y = 0; y < imgWidth; y++)
 			{
 				if((flags[x][y] & CONTOUR)
-					&& !((flags_N(flags, x, y) ^ flags_S(flags, x ,y)) & (CONTOUR | INTERNE))
-					&& !((flags_E(flags, x, y) ^ flags_O(flags, x ,y)) & (CONTOUR | INTERNE)))
+				&&
+						((!((flags_N(flags, x, y) ^ flags_S(flags, x ,y)) & (CONTOUR | INTERNE))
+						&& !((flags_E(flags, x, y) ^ flags_O(flags, x ,y)) & (CONTOUR | INTERNE)))
+					||
+							(((flags_NE(flags, x, y) & CONTOUR) && (flags_SE(flags, x, y) & CONTOUR)
+							&& (flags_SO(flags, x, y) & CONTOUR) && (flags_NO(flags, x, y) & CONTOUR))
+						&&
+							((flags_N(flags, x, y) & FOND) && (flags_E(flags, x, y) & FOND)
+							&& (flags_S(flags, x, y) & FOND) && (flags_O(flags, x, y) & FOND)))
+				))
 				{
 					flags[x][y] = flags[x][y] | MULTIPLE;
+					flags[x][y] = flags[x][y] | SQUELETTE;
+				}
+				else
+				{
+					flags[x][y] = FOND;
 				}
 			}
 		}
-	//}
+
+		// Squelettisation
+	}
 }

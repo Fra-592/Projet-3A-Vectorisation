@@ -96,6 +96,7 @@ int is_valid_img(const char *imgName)
     return(1);
 }
 
+
 void get_image_pixels(const char *imgName, int **image)
 {
 	FILE *imgFile = fopen(imgName, "rb+");

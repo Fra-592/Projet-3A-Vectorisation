@@ -46,6 +46,7 @@ int main(int argc, char const *argv[])
 		//Création de la matrice qui va représenter l'image
 		int **image;
 		int i;
+		int j;
 
 		image = malloc(imgHeight * sizeof(int *));
 		for(i = 0; i < imgHeight; i++)
@@ -63,6 +64,10 @@ int main(int argc, char const *argv[])
 		for(i = 0; i < imgHeight; i++)
 		{
 			transformee[i] = malloc(imgWidth * sizeof(int));
+			for(j = 0; j < imgWidth; j++)
+			{
+				transformee[i][j] = 0;
+			}
 		}
 
 		transformee_distance(image, transformee);
@@ -70,7 +75,6 @@ int main(int argc, char const *argv[])
 
 		//Création du tableau de flags
 		t_flag **flags;
-		int j;
 
 		flags = malloc(imgHeight * sizeof(void *));
 		for(i = 0; i < imgHeight; i++)
@@ -83,8 +87,39 @@ int main(int argc, char const *argv[])
 		}
 
 		squelettisation(transformee, flags);
+
+		// Affichage
+		/* Image 
+		*/
+		for(i = imgHeight-1; i >= 0; i--)
+		{
+			for(j = 0; j < imgWidth; j++)
+			{
+				printf("%d ",image[i][j]);
+			}
+			printf("\n");
+		}
 		printf("\n");
-		for(i = 0; i < imgHeight; i++)
+		/*
+		Fin Image */
+		
+		/* Transformée
+		*/
+		for(i = imgHeight-1; i >= 0; i--)
+		{
+			for(j = 0; j < imgWidth; j++)
+			{
+				printf("%d ",transformee[i][j]);
+			}
+			printf("\n");
+		}
+		printf("\n");
+		/*
+		Fin Transforméee */
+
+		/* Squelette
+		*/
+		for(i = imgHeight-1; i >= 0; i--)
 		{
 			for(j = 0; j < imgWidth; j++)
 			{
@@ -92,6 +127,8 @@ int main(int argc, char const *argv[])
 			}
 			printf("\n");
 		}
+		/*
+		Fin Squelette */
 
 
 
