@@ -3,6 +3,12 @@
 #include <unistd.h>
 #include <string.h>
 #include "libs/io.h"
+#include "libs/transformee.h"
+
+
+int imgHeight;
+int imgWidth;
+
 
 int main(int argc, char const *argv[])
 {
@@ -25,19 +31,21 @@ int main(int argc, char const *argv[])
 
 		//Obtention de l'image et de ses infos
 		chdir("img");
+
 		if(!is_valid_img(imgName))
 		{
 			printf("Image invalide. Tapez ./vectorisation help pour obtenir de l'aide\n");
 			return(-1);
 		}
 
-		int imgWidth = get_image_width(imgName);
-		int imgHeight = get_image_height(imgName);
+		imgWidth = get_image_width(imgName);
+		imgHeight = get_image_height(imgName);
 
 
 		//Création de la matrice qui va représenter l'image
 		int **image;
 		int i;
+
 		image = malloc(imgHeight * sizeof(int *));
 		for(i = 0; i < imgHeight; i++)
 		{
@@ -46,12 +54,31 @@ int main(int argc, char const *argv[])
 
 		get_image_pixels(imgName, image);
 
+
+		//Création de la matrice qui va contenir la transformée en distance
+		int **transformee;
+
+		transformee = malloc(imgHeight * sizeof(int *));
+		for(i = 0; i < imgHeight; i++)
+		{
+			transformee[i] = malloc(imgWidth * sizeof(int));
+		}
+		
+		transformee_distance(image, transformee);
+
+
 		//Libération de mémoire
 		for(i = 0; i < imgHeight; i++)
 		{
 			free(image[i]);
 		}
 		free(image);
+
+		for(i = 0; i < imgHeight; i++)
+		{
+			free(transformee[i]);
+		}
+		free(transformee);
 	}
 
 	return(0);

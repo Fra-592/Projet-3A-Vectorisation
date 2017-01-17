@@ -7,7 +7,7 @@
 #include "bmp_worker.h"
 #include "io.h"
 
-int list_images(void)
+void list_images(void)
 {
 	char dirname[] = "img";
 	DIR *imgDir = opendir(dirname);
@@ -27,7 +27,6 @@ int list_images(void)
 		}
 	}
 	closedir(imgDir);
-	return(0);
 }
 
 
@@ -38,7 +37,6 @@ int get_image_width(const char *imgName)
 	
 	BmpWorker_InfoHeader_read(imgFile, infoHeader);
 	int imgWidth = infoHeader->img_width;
-
 
 	//Libération de mémoire
 	free(infoHeader);
@@ -54,7 +52,6 @@ int get_image_height(const char *imgName)
 	
 	BmpWorker_InfoHeader_read(imgFile, infoHeader);
 	int imgHeight = infoHeader->img_height;
-
 
 	//Libération de mémoire
 	free(infoHeader);
@@ -99,7 +96,7 @@ int is_valid_img(const char *imgName)
     return(1);
 }
 
-int get_image_pixels(const char *imgName, int **image)
+void get_image_pixels(const char *imgName, int **image)
 {
 	FILE *imgFile = fopen(imgName, "rb+");
 
@@ -112,7 +109,6 @@ int get_image_pixels(const char *imgName, int **image)
 
     uint32_t imgWidth = infoHeader->img_width;
     uint32_t imgHeight = infoHeader->img_height;
-
 
 	//Lecture des données de l'image
     uint8_t *pData = (uint8_t *) malloc(infoHeader->bmp_bytesz * sizeof(uint8_t));
@@ -134,11 +130,9 @@ int get_image_pixels(const char *imgName, int **image)
     	}
     }
 
-
     //Libération de mémoire
     free(infoHeader);
     free(fileHeader);
     free(pData);
 	fclose(imgFile);
-	return(0);
 }
