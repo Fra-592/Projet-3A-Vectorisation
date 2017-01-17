@@ -20,7 +20,6 @@ int dist_N(int **image, int **transformee, int x, int y)
 	return(0);
 }
 
-
 int dist_E(int **image, int **transformee, int x, int y)
 {
 	if((y < imgWidth - 1) && (image[x][y+1] != 0))
@@ -30,7 +29,6 @@ int dist_E(int **image, int **transformee, int x, int y)
 	return(0);
 }
 
-
 int dist_S(int **image, int **transformee, int x, int y)
 {
 	if((x > 0) && (image[x-1][y] != 0))
@@ -39,7 +37,6 @@ int dist_S(int **image, int **transformee, int x, int y)
 	}
 	return(0);
 }
-
 
 int dist_O(int **image, int **transformee, int x, int y)
 {

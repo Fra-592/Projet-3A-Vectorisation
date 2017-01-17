@@ -4,6 +4,7 @@
 #include <string.h>
 #include "libs/io.h"
 #include "libs/transformee.h"
+#include "libs/squelettisation.h"
 
 
 int imgHeight;
@@ -63,8 +64,21 @@ int main(int argc, char const *argv[])
 		{
 			transformee[i] = malloc(imgWidth * sizeof(int));
 		}
-		
+
 		transformee_distance(image, transformee);
+
+
+		//Création du tableau de flags
+		t_flag **flags;
+
+		flags = malloc(imgHeight * sizeof(t_flag *));
+		for(i = 0; i < imgHeight; i++)
+		{
+			flags[i] = malloc(imgWidth * sizeof(t_flag));
+		}
+
+		squelettisation(transformee);
+
 
 
 		//Libération de mémoire
@@ -79,6 +93,12 @@ int main(int argc, char const *argv[])
 			free(transformee[i]);
 		}
 		free(transformee);
+
+		for(i = 0; i < imgHeight; i++)
+		{
+			free(flags[i]);
+		}
+		free(flags);
 	}
 
 	return(0);

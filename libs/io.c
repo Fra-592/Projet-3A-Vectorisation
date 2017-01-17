@@ -117,15 +117,14 @@ void get_image_pixels(const char *imgName, int **image)
 
     // Conversion
     int i, j;
-    int bytesPP = infoHeader->bitspp / 8;
 
     for(i = 0; i < imgHeight; i++)
     {
     	for(j = 0; j < imgWidth; j++)
     	{
-    		image[i][j] = (uint8_t) *(pData + i * imgWidth * bytesPP + j * bytesPP);
-    		image[i][j] = image[i][j] | (*(pData + i * imgWidth * bytesPP + j * bytesPP + 1) << 8);
-    		image[i][j] = image[i][j] | (*(pData + i * imgWidth * bytesPP + j * bytesPP + 2) << 16);
+    		image[i][j] = *(pData + i * imgWidth * 3 + j * 3);
+    		image[i][j] = image[i][j] | (*(pData + i * imgWidth * 3 + j * 3 + 1) << 8);
+    		image[i][j] = image[i][j] | (*(pData + i * imgWidth * 3 + j * 3 + 2) << 16);
     		image[i][j] = (image[i][j] != 0xFFFFFF);
     	}
     }
