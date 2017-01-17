@@ -52,7 +52,6 @@ void transformee_distance(int **image, int **transformee)
 {
 	int x;
 	int y;
-	int i, j;
 
 	//1ère passe
 	for(x = imgHeight - 1; x >= 0; x--)

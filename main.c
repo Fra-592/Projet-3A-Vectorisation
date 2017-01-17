@@ -70,14 +70,28 @@ int main(int argc, char const *argv[])
 
 		//Création du tableau de flags
 		t_flag **flags;
+		int j;
 
-		flags = malloc(imgHeight * sizeof(t_flag *));
+		flags = malloc(imgHeight * sizeof(void *));
 		for(i = 0; i < imgHeight; i++)
 		{
 			flags[i] = malloc(imgWidth * sizeof(t_flag));
+			for(j = 0; j < imgWidth; j++)
+			{
+				flags[i][j] = 0;
+			}
 		}
 
-		squelettisation(transformee);
+		squelettisation(transformee, flags);
+		printf("\n");
+		for(i = 0; i < imgHeight; i++)
+		{
+			for(j = 0; j < imgWidth; j++)
+			{
+				printf("%d ",flags[i][j]);
+			}
+			printf("\n");
+		}
 
 
 
