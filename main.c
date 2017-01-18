@@ -66,7 +66,7 @@ int main(int argc, char const *argv[])
 			transformee[i] = malloc(imgWidth * sizeof(int));
 			for(j = 0; j < imgWidth; j++)
 			{
-				transformee[i][j] = 0;
+				transformee[i][j] = image[i][j]==0?0:1024;
 			}
 		}
 
@@ -90,8 +90,8 @@ int main(int argc, char const *argv[])
 
 		// Affichage
 		/* Image 
-		*/
-		for(i = imgHeight-1; i >= 0; i--)
+		/
+		for(i = 0; i < imgHeight; i++)
 		{
 			for(j = 0; j < imgWidth; j++)
 			{
@@ -105,11 +105,11 @@ int main(int argc, char const *argv[])
 		
 		/* Transformée
 		*/
-		for(i = imgHeight-1; i >= 0; i--)
+		for(i = 0; i < imgHeight; i++)
 		{
 			for(j = 0; j < imgWidth; j++)
 			{
-				printf("%d ",transformee[i][j]);
+				printf("%2d ",transformee[i][j]);
 			}
 			printf("\n");
 		}
@@ -119,11 +119,11 @@ int main(int argc, char const *argv[])
 
 		/* Squelette
 		*/
-		for(i = imgHeight-1; i >= 0; i--)
+		for(i = 0; i < imgHeight; i++)
 		{
 			for(j = 0; j < imgWidth; j++)
 			{
-				printf("%d ",flags[i][j]);
+				printf("%2d ",flags[i][j]);
 			}
 			printf("\n");
 		}

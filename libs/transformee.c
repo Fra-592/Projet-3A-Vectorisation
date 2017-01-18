@@ -1,4 +1,5 @@
 #include "transformee.h"
+#include <stdio.h>
 
 
 extern int imgHeight;
@@ -15,9 +16,9 @@ int min(int x, int y)
 }
 
 
-int dist_N(int **image, int **transformee, int x, int y)
+int dist_S(int **image, int **transformee, int x, int y)
 {
-	if((x < imgHeight - 1) && (image[x+1][y] != 0))
+	if(x < imgHeight - 1)
 	{
 		return(transformee[x+1][y]);
 	}
@@ -26,16 +27,16 @@ int dist_N(int **image, int **transformee, int x, int y)
 
 int dist_E(int **image, int **transformee, int x, int y)
 {
-	if((y < imgWidth - 1) && (image[x][y+1] != 0))
+	if(y < imgWidth - 1)
 	{
 		return(transformee[x][y+1]);
 	}
 	return(0);
 }
 
-int dist_S(int **image, int **transformee, int x, int y)
+int dist_N(int **image, int **transformee, int x, int y)
 {
-	if((x > 0) && (image[x-1][y] != 0))
+	if(x > 0)
 	{
 		return(transformee[x-1][y]);
 	}
@@ -44,7 +45,7 @@ int dist_S(int **image, int **transformee, int x, int y)
 
 int dist_O(int **image, int **transformee, int x, int y)
 {
-	if((y > 0) && (image[x][y-1] != 0))
+	if(y > 0)
 	{
 		return(transformee[x][y-1]);
 	}
@@ -62,13 +63,13 @@ void transformee_distance(int **image, int **transformee)
 	{
 		for(y = 0; y < imgWidth; y++)
 		{
-			if(image[x][y] != 0)
+			if(image[x][y] == 0)
 			{
-				transformee[x][y] = min(dist_N(image, transformee, x, y), dist_O(image, transformee, x, y)) + 1;
+				transformee[x][y] = 0;
 			}
 			else
 			{
-				transformee[x][y] = 0;
+				transformee[x][y] = min(dist_N(image, transformee, x, y), dist_O(image, transformee, x, y)) + 1;
 			}
 		}
 	}
@@ -78,10 +79,7 @@ void transformee_distance(int **image, int **transformee)
 	{
 		for(y = imgWidth - 1; y >= 0; y--)
 		{
-			if(image[x][y] != 0)
-			{
-				transformee[x][y] = min(dist_E(image, transformee, x, y), dist_S(image, transformee, x, y)) + 1;
-			}
+			transformee[x][y] = min(transformee[x][y], min(dist_E(image, transformee, x, y), dist_S(image, transformee, x, y))+1);
 		}
 	}
 }

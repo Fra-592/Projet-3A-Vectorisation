@@ -123,10 +123,10 @@ void get_image_pixels(const char *imgName, int **image)
     {
     	for(j = 0; j < imgWidth; j++)
     	{
-    		image[i][j] = *(pData + i * imgWidth * 3 + j * 3);
-    		image[i][j] = image[i][j] | (*(pData + i * imgWidth * 3 + j * 3 + 1) << 8);
-    		image[i][j] = image[i][j] | (*(pData + i * imgWidth * 3 + j * 3 + 2) << 16);
-    		image[i][j] = (image[i][j] != 0xFFFFFF);
+    		image[imgHeight-i-1][j] = *(pData + i * imgWidth * 3 + j * 3);
+    		image[imgHeight-i-1][j] = image[imgHeight-i-1][j] | (*(pData + i * imgWidth * 3 + j * 3 + 1) << 8);
+    		image[imgHeight-i-1][j] = image[imgHeight-i-1][j] | (*(pData + i * imgWidth * 3 + j * 3 + 2) << 16);
+    		image[imgHeight-i-1][j] = (image[imgHeight-i-1][j] != 0xFFFFFF);
     	}
     }
 

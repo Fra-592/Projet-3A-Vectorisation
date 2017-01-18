@@ -25,7 +25,7 @@ int max_dist(int **matrice)
 }
 
 
-t_flag flags_N(t_flag **flags, int x, int y)
+t_flag flags_S(t_flag **flags, int x, int y)
 {
 	if(x < imgHeight - 1)
 	{
@@ -43,7 +43,7 @@ t_flag flags_E(t_flag **flags, int x, int y)
 	return(0);
 }
 
-t_flag flags_S(t_flag **flags, int x, int y)
+t_flag flags_N(t_flag **flags, int x, int y)
 {
 	if(x > 0)
 	{
@@ -61,7 +61,7 @@ t_flag flags_O(t_flag **flags, int x, int y)
 	return(0);
 }
 
-t_flag flags_NE(t_flag **flags, int x, int y)
+t_flag flags_SE(t_flag **flags, int x, int y)
 {
 	if((x < imgHeight - 1) && (y < imgWidth - 1))
 	{
@@ -70,7 +70,7 @@ t_flag flags_NE(t_flag **flags, int x, int y)
 	return(0);
 }
 
-t_flag flags_SE(t_flag **flags, int x, int y)
+t_flag flags_NE(t_flag **flags, int x, int y)
 {
 	if((x > 0) && (y < imgWidth - 1))
 	{
@@ -79,7 +79,7 @@ t_flag flags_SE(t_flag **flags, int x, int y)
 	return(0);
 }
 
-t_flag flags_SO(t_flag **flags, int x, int y)
+t_flag flags_NO(t_flag **flags, int x, int y)
 {
 	if((x > 0) && (y > 0))
 	{
@@ -88,7 +88,7 @@ t_flag flags_SO(t_flag **flags, int x, int y)
 	return(0);
 }
 
-t_flag flags_NO(t_flag **flags, int x, int y)
+t_flag flags_SO(t_flag **flags, int x, int y)
 {
 	if((x < imgHeight - 1) && (y > 0))
 	{
