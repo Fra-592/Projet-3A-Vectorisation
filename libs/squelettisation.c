@@ -63,22 +63,38 @@ t_flag flags_O(t_flag **flags, int x, int y)
 
 t_flag flags_NE(t_flag **flags, int x, int y)
 {
-	//En cours
+	if((x < imgHeight - 1) && (y < imgWidth - 1))
+	{
+		return(flags[x+1][y+1]);
+	}
+	return(0);
 }
 
 t_flag flags_SE(t_flag **flags, int x, int y)
 {
-	//En cours
+	if((x > 0) && (y < imgWidth - 1))
+	{
+		return(flags[x-1][y+1]);
+	}
+	return(0);
 }
 
 t_flag flags_SO(t_flag **flags, int x, int y)
 {
-	//En cours
+	if((x > 0) && (y > 0))
+	{
+		return(flags[x-1][y-1]);
+	}
+	return(0);
 }
 
 t_flag flags_NO(t_flag **flags, int x, int y)
 {
-	//En cours
+	if((x < imgHeight - 1) && (y > 0))
+	{
+		return(flags[x+1][y-1]);
+	}
+	return(0);
 }
 
 
