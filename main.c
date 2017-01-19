@@ -95,7 +95,7 @@ int main(int argc, char const *argv[])
 		{
 			for(j = 0; j < imgWidth; j++)
 			{
-				printf("%d ",image[i][j]);
+				printf("%2d ",image[i][j]);
 			}
 			printf("\n");
 		}

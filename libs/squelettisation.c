@@ -114,18 +114,7 @@ void squelettisation(int **transformee, t_flag **flags)
 		{
 			for(y = 0; y < imgWidth; y++)
 			{
-				if(transformee[x][y] < dist && !(flags[x][y] & MULTIPLE))
-				{
-					flags[x][y] = FOND;
-				}
-				else if(transformee[x][y] == dist)
-				{
-					flags[x][y] = flags[x][y] | CONTOUR;
-				}
-				else if(transformee[x][y] > dist)
-				{
-					flags[x][y] = flags[x][y] | INTERNE;
-				}
+				
 			}
 		}
 
@@ -134,25 +123,7 @@ void squelettisation(int **transformee, t_flag **flags)
 		{
 			for(y = 0; y < imgWidth; y++)
 			{
-				if((flags[x][y] & CONTOUR)
-				&&
-						((!((flags_N(flags, x, y) ^ flags_S(flags, x ,y)) & (CONTOUR | INTERNE))
-						&& !((flags_E(flags, x, y) ^ flags_O(flags, x ,y)) & (CONTOUR | INTERNE)))
-					||
-							(((flags_NE(flags, x, y) & CONTOUR) && (flags_SE(flags, x, y) & CONTOUR)
-							&& (flags_SO(flags, x, y) & CONTOUR) && (flags_NO(flags, x, y) & CONTOUR))
-						&&
-							((flags_N(flags, x, y) & FOND) && (flags_E(flags, x, y) & FOND)
-							&& (flags_S(flags, x, y) & FOND) && (flags_O(flags, x, y) & FOND)))
-				))
-				{
-					flags[x][y] = flags[x][y] | MULTIPLE;
-					flags[x][y] = flags[x][y] | SQUELETTE;
-				}
-				else
-				{
-					flags[x][y] = FOND;
-				}
+				
 			}
 		}
 
