@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
 	{
 		printf("Vous avez oublié de préciser l'image à utiliser et/ou le seuil!\n\n"
 			"Rappel: ce programme s'utilise de la manière suivante: ./vectorisation <nom de l'image> <seuil>\n"
-			"\t-L'image appelée doit être placée dans le dossier img et être au format bitmap."
+			"\t-L'image appelée doit être placée dans le dossier img et être au format bitmap 24 bits."
 			"Son nom doit être de moins de 64 caractères.\n"
 			"\t-Le seuil est un entier entre 0 (pas de simplification) et 100 (simplification maximale).\n\n");
 		list_images();
@@ -123,7 +123,7 @@ int main(int argc, char const *argv[])
 		{
 			for(j = 0; j < imgWidth; j++)
 			{
-				printf("%2d ",flags[i][j]);
+				printf("%2d ",flags[i][j]/16);
 			}
 			printf("\n");
 		}
