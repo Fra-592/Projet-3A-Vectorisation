@@ -4,8 +4,8 @@ CC = gcc
 SEUIL = 75
 
 
-$(NOM): main.o bmp_worker.o io.o squelettisation.o transformee.o
-	$(CC) -o $(NOM) main.o bmp_worker.o io.o squelettisation.o transformee.o
+$(NOM): main.o bmp_worker.o io.o squelettisation.o transformee.o vectorisation.o
+	$(CC) -o $(NOM) main.o bmp_worker.o io.o squelettisation.o transformee.o vectorisation.o
 
 test: $(NOM)
 	./$(NOM) ligne.bmp $(SEUIL)
@@ -29,6 +29,9 @@ squelettisation.o: $(LIBS_DIR)/squelettisation.c $(LIBS_DIR)/squelettisation.h
 
 transformee.o: $(LIBS_DIR)/transformee.c $(LIBS_DIR)/transformee.h
 	$(CC) -c $(LIBS_DIR)/transformee.c
+
+vectorisation.o: $(LIBS_DIR)/vectorisation.c $(LIBS_DIR)/vectorisation.h
+	$(CC) -c $(LIBS_DIR)/vectorisation.c
 
 clean: *.o
 	rm *.o

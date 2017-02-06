@@ -122,10 +122,8 @@ int multiple(t_flag **flags, int x, int y)
 
 void squelettisation(int **transformee, t_flag **flags)
 {
-	int max;
-	int dist;
-	int x;
-	int y;
+	int max, dist;
+	int x, y;
 	int compteur;
 
 	max = max_dist(transformee);
@@ -189,4 +187,5 @@ void squelettisation(int **transformee, t_flag **flags)
 			}
 		}
 	}
+	/* TODO: Amincissement */
 }

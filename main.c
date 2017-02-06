@@ -5,6 +5,7 @@
 #include "libs/io.h"
 #include "libs/transformee.h"
 #include "libs/squelettisation.h"
+#include "libs/vectorisation.h"
 
 
 int imgHeight;
@@ -32,28 +33,25 @@ int main(int argc, char const *argv[])
 
 		//Obtention de l'image et de ses infos
 		chdir("img");
-
 		if(!is_valid_img(imgName))
 		{
 			printf("Image invalide. Tapez ./vectorisation help pour obtenir de l'aide\n");
 			return(-1);
 		}
-
 		imgWidth = get_image_width(imgName);
 		imgHeight = get_image_height(imgName);
 
 
 		//Création de la matrice qui va représenter l'image
 		int **image;
-		int i;
-		int j;
+		int i, j;
 
 		image = malloc(imgHeight * sizeof(int *));
+
 		for(i = 0; i < imgHeight; i++)
 		{
 			image[i] = malloc(imgWidth * sizeof(int));
 		}
-
 		get_image_pixels(imgName, image);
 
 
@@ -61,6 +59,7 @@ int main(int argc, char const *argv[])
 		int **transformee;
 
 		transformee = malloc(imgHeight * sizeof(int *));
+
 		for(i = 0; i < imgHeight; i++)
 		{
 			transformee[i] = malloc(imgWidth * sizeof(int));
@@ -69,7 +68,6 @@ int main(int argc, char const *argv[])
 				transformee[i][j] = image[i][j]==0?0:1024;
 			}
 		}
-
 		transformee_distance(image, transformee);
 
 
@@ -77,6 +75,7 @@ int main(int argc, char const *argv[])
 		t_flag **flags;
 
 		flags = malloc(imgHeight * sizeof(void *));
+
 		for(i = 0; i < imgHeight; i++)
 		{
 			flags[i] = malloc(imgWidth * sizeof(t_flag));
@@ -85,40 +84,28 @@ int main(int argc, char const *argv[])
 				flags[i][j] = 0;
 			}
 		}
-
 		squelettisation(transformee, flags);
 
-		// Affichage
-		/* Image 
-		/
+		// Libération de l'image
 		for(i = 0; i < imgHeight; i++)
 		{
-			for(j = 0; j < imgWidth; j++)
-			{
-				printf("%2d ",image[i][j]);
-			}
-			printf("\n");
+			free(image[i]);
 		}
-		printf("\n");
-		/*
-		Fin Image */
-		
-		/* Transformée
-		*/
-		for(i = 0; i < imgHeight; i++)
-		{
-			for(j = 0; j < imgWidth; j++)
-			{
-				printf("%2d ",transformee[i][j]);
-			}
-			printf("\n");
-		}
-		printf("\n");
-		/*
-		Fin Transforméee */
 
-		/* Squelette
-		*/
+		free(image);
+
+		// Libération de la transformée en distance
+		for(i = 0; i < imgHeight; i++)
+		{
+			free(transformee[i]);
+		}
+
+		free(transformee);
+
+
+		// Affichage
+		
+		printf("\n");
 		for(i = 0; i < imgHeight; i++)
 		{
 			for(j = 0; j < imgWidth; j++)
@@ -127,28 +114,25 @@ int main(int argc, char const *argv[])
 			}
 			printf("\n");
 		}
-		/*
-		Fin Squelette */
 
+		tp_vects vecteurs, vect;
+		vecteurs = extraire_vecteurs(flags);
 
-
-		//Libération de mémoire
-		for(i = 0; i < imgHeight; i++)
+		vect = vecteurs;
+		i = 0;
+		while(vect)
 		{
-			free(image[i]);
+			i++;
+			vect = vect->suiv;
 		}
-		free(image);
+			printf("%d vecteurs trouvés\n", i);
 
-		for(i = 0; i < imgHeight; i++)
-		{
-			free(transformee[i]);
-		}
-		free(transformee);
-
+		// Libération du tableau de flags
 		for(i = 0; i < imgHeight; i++)
 		{
 			free(flags[i]);
 		}
+
 		free(flags);
 	}
 
