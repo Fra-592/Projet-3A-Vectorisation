@@ -1,5 +1,4 @@
 #include "simplification.h"
-#include <stdio.h>
 
 int longueur(tp_vect vecteur)
 {
@@ -19,7 +18,6 @@ float distance(int a, int b, int x, int y)
 {
 	float result;
 	result = (float)fabs(a * x - y + b)/sqrt(a*a + 1);
-	printf("a:%d b:%d x:%d y:%d Distance: %f\n",a,b,x,y,result);
 	return(result);
 }
 
