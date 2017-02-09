@@ -143,7 +143,7 @@ void print_tex(const char *name, tp_vects vecteurs)
 	FILE *texFile = fopen(name, "w");
 
 	// Introduction du document
-	fprintf(texFile, "\\documentclass{article}\n\\usepackage{tickz}\n\\begin{document}\n\\begin{tikzpicture}\n");
+	fprintf(texFile, "\\documentclass{article}\n\\usepackage{tikz}\n\\begin{document}\n\\begin{tikzpicture}[scale=%f]\n", (float)10/imgWidth);
 
 	while(vecteurs)
 	{
@@ -154,7 +154,7 @@ void print_tex(const char *name, tp_vects vecteurs)
 			point2 = point1->suiv;
 			if(point1 && point2)
 			{
-				fprintf(texFile, "\\draw (%d, %d) -- (%d, %d)\n", imgWidth - (point1->x), imgHeight - (point1->y), imgWidth - (point2->x), imgHeight - (point2->y));
+				fprintf(texFile, "\\draw (%d, %d) -- (%d, %d);\n", point1->x, imgHeight-(point1->y), point2->x, imgHeight-(point2->y));
 			}
 			point1 = point2;
 		}
@@ -162,6 +162,6 @@ void print_tex(const char *name, tp_vects vecteurs)
 	}
 
 	// Fin du document
-	fprintf(texFile, "\\end{tikzpicture}\n\\end{document}");
+	fprintf(texFile, "\\end{tikzpicture}\n\\end{document}\n");
 	fclose(texFile);
 }
