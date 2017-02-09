@@ -136,3 +136,9 @@ void get_image_pixels(const char *imgName, int **image)
     free(pData);
 	fclose(imgFile);
 }
+
+
+void print_tex(const char *name, tp_vects vecteurs)
+{
+	//TODO
+}

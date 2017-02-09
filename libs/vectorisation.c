@@ -1,7 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <malloc.h>
 #include "vectorisation.h"
-#include "transformee.h"
 
 extern int imgHeight;
 extern int imgWidth;
@@ -46,7 +44,6 @@ tp_vect ajouter_point(tp_vect vecteur, int x, int y)
 }
 
 
-
 int prochain_point(t_flag **flags, int *x, int *y)
 {
 	flags[*x][*y] = flags[*x][*y] ^ SQUELETTE;
@@ -60,7 +57,6 @@ int prochain_point(t_flag **flags, int *x, int *y)
 			{
 				*x = i;
 				*y = j;
-				printf("On regarde %d, %d\n", i, j);
 				return(1);
 			}
 		}

@@ -6,6 +6,7 @@
 #include "libs/transformee.h"
 #include "libs/squelettisation.h"
 #include "libs/vectorisation.h"
+#include "libs/simplification.h"
 
 
 int imgHeight;
@@ -94,6 +95,16 @@ int main(int argc, char const *argv[])
 
 		free(image);
 
+
+		printf("\n");
+		for(i = 0; i < imgHeight; i++)
+		{
+			for(j = 0; j < imgWidth; j++)
+			{
+				printf("%2d ",transformee[i][j]);
+			}
+			printf("\n");
+		}
 		// Libération de la transformée en distance
 		for(i = 0; i < imgHeight; i++)
 		{
@@ -101,9 +112,6 @@ int main(int argc, char const *argv[])
 		}
 
 		free(transformee);
-
-
-		// Affichage
 		
 		printf("\n");
 		for(i = 0; i < imgHeight; i++)
@@ -115,25 +123,49 @@ int main(int argc, char const *argv[])
 			printf("\n");
 		}
 
-		tp_vects vecteurs, vect;
+		
+		tp_vects vecteurs;
 		vecteurs = extraire_vecteurs(flags);
 
-		vect = vecteurs;
+
+		tp_vects vect = vecteurs;
 		i = 0;
 		while(vect)
 		{
 			i++;
 			vect = vect->suiv;
 		}
-			printf("%d vecteurs trouvés\n", i);
-
+		printf("%d vecteurs trouvés\n", i);
 		// Libération du tableau de flags
 		for(i = 0; i < imgHeight; i++)
 		{
 			free(flags[i]);
 		}
-
 		free(flags);
+
+		// Simplification de Douglas-Peucker;
+		simplification(vecteurs, seuil);
+
+		// Export vers un fichier .tex
+		print_tex(imgName, vecteurs);
+
+		//Libération des vecteurs
+		/*tp_vects */
+		vect = vecteurs;
+		tp_vect point, point2;
+		while(vect)
+		{
+			point = vect->vecteur;
+			while(point)
+			{
+				point2 = point;
+				point = point2->suiv;
+				free(point2);
+			}
+			vecteurs = vect;
+			vect = vecteurs->suiv;
+			free(vecteurs);
+		}
 	}
 
 	return(0);

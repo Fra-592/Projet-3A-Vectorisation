@@ -1,5 +1,5 @@
 #include "transformee.h"
-#include <stdio.h>
+#include <malloc.h>
 
 
 extern int imgHeight;
