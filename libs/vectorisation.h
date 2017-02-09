@@ -26,6 +26,7 @@
 */
 	tp_vect ajouter_point(tp_vect vecteur, int x, int y);
 	tp_vect creer_vecteur();
+	int longueur(tp_vect vecteur);
 
 /*
 	Extrait les différents vecteurs à partir de la matrice de flags

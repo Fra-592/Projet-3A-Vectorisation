@@ -40,58 +40,88 @@ tp_vect ajouter_point(tp_vect vecteur, int x, int y)
 	return(temp);
 }
 
-
-int prochain_point(t_flag **flags, int *x, int *y)
+int longueur(tp_vect vecteur)
 {
-	flags[*y][*x] = flags[*y][*x] ^ SQUELETTE;
+	int cpt;
 
-	int i, j;
-	for(i = max((*x)-1, 0); i < min((*x)+2, imgWidth); i++)
+	cpt = 0;
+	while(vecteur->suiv)
 	{
-		for(j = max((*y)-1, 0); j < min((*y)+2, imgHeight); j++)
+		cpt++;
+		vecteur = vecteur->suiv;
+	}
+	return(cpt);
+}
+
+int nb_voisins(t_flag **flags, int *x, int *y)
+{
+	int x2 = *x, y2 = *y, i, j;
+	int cpt = 0;
+	for(i = max(x2-1, 0); i < min(x2+2, imgHeight); i++)
+	{
+		for(j = max(y2-1, 0); j < min(y2+2, imgWidth); j++)
 		{
-			if(flags[j][i] & SQUELETTE)
+			if(((i!=x2) || (j!=y2)) 
+				&& (flags[i][j] & SQUELETTE))
 			{
+				cpt++;
 				*x = i;
 				*y = j;
-				return(1);
 			}
 		}
 	}
-	return(0);
+	return(cpt);
 }
 
+tp_vect prochain_point(t_flag **flags, tp_vect vecteur, int x, int y)
+{
+	int i = x, j = y;
+	int voisins = nb_voisins(flags, &i, &j);
+	if(voisins == 0)
+	{
+		flags[x][y] = flags[x][y] ^ SQUELETTE;
+		vecteur = ajouter_point(vecteur, x, y);
+	}
+	else if(voisins == 1)
+	{
+		flags[x][y] = flags[x][y] ^ SQUELETTE;
+		vecteur = ajouter_point(vecteur, x, y);
+		vecteur = prochain_point(flags, vecteur, i, j);
+	}
+	else
+	{
+		flags[x][y] = flags[x][y] ^ SQUELETTE;
+		vecteur = ajouter_point(vecteur, x, y);
+		vecteur = prochain_point(flags, vecteur, i, j);
+		flags[x][y] = flags[x][y] ^ SQUELETTE;
+	}
+	return(vecteur);
+}
 
 tp_vects extraire_vecteurs(t_flag **flags)
 {	
 		tp_vects liste;
 		tp_vect vecteur;
-		int x, y;
 		int i, j;
-		int dir;
 
 		liste = creer_liste();
-		for(x = 0; x < imgWidth; x++)
+		for(i = 0; i < imgHeight; i++)
 		{
-			for(y = 0; y < imgHeight; y++)
+			for(j = 0; j < imgWidth; j++)
 			{
-				if(flags[y][x] & SQUELETTE)
+				if(flags[i][j] & SQUELETTE)
 				{
 					vecteur = creer_vecteur();
-					vecteur = ajouter_point(vecteur, x, y);
+					vecteur = prochain_point(flags, vecteur, i, j);
 					
-					i = x;
-					j = y;
-
-					dir = prochain_point(flags, &i, &j);
-					while(dir)
+					if(longueur(vecteur) == 0)
 					{
-						vecteur = ajouter_point(vecteur, i, j);
-						dir = prochain_point(flags, &i, &j);
+						free(vecteur);
 					}
-
-					
-					liste = ajouter_vecteur(liste, vecteur);
+					else
+					{
+						liste = ajouter_vecteur(liste, vecteur);
+					}
 				}
 			}
 		}
