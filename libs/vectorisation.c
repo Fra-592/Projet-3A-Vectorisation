@@ -33,8 +33,8 @@ tp_vect ajouter_point(tp_vect vecteur, int x, int y)
 
 	temp = malloc(sizeof(t_vect));
 
-	temp->x = y;
-	temp->y = x;
+	temp->x = x;
+	temp->y = y;
 	temp->suiv = vecteur;
 
 	return(temp);
@@ -43,14 +43,14 @@ tp_vect ajouter_point(tp_vect vecteur, int x, int y)
 
 int prochain_point(t_flag **flags, int *x, int *y)
 {
-	flags[*x][*y] = flags[*x][*y] ^ SQUELETTE;
+	flags[*y][*x] = flags[*y][*x] ^ SQUELETTE;
 
 	int i, j;
-	for(i = max((*x)-1, 0); i < min((*x)+2, imgHeight); i++)
+	for(i = max((*x)-1, 0); i < min((*x)+2, imgWidth); i++)
 	{
-		for(j = max((*y)-1, 0); j < min((*y)+2, imgWidth); j++)
+		for(j = max((*y)-1, 0); j < min((*y)+2, imgHeight); j++)
 		{
-			if(flags[i][j] & SQUELETTE)
+			if(flags[j][i] & SQUELETTE)
 			{
 				*x = i;
 				*y = j;
@@ -71,11 +71,11 @@ tp_vects extraire_vecteurs(t_flag **flags)
 		int dir;
 
 		liste = creer_liste();
-		for(x = 0; x < imgHeight; x++)
+		for(x = 0; x < imgWidth; x++)
 		{
-			for(y = 0; y < imgWidth; y++)
+			for(y = 0; y < imgHeight; y++)
 			{
-				if(flags[x][y] & SQUELETTE)
+				if(flags[y][x] & SQUELETTE)
 				{
 					vecteur = creer_vecteur();
 					vecteur = ajouter_point(vecteur, x, y);

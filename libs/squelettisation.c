@@ -96,8 +96,8 @@ t_flag flags_NO(t_flag **flags, int x, int y)
 
 int multiple(t_flag **flags, int x, int y)
 {
-	if(!(flags_N(flags, x, y) ^ flags_S(flags, x, y))&(INTERNE | FOND)
-		|| !(flags_E(flags, x, y) ^ flags_O(flags, x, y))&(INTERNE | FOND))
+	if((((flags_N(flags, x, y) ^ flags_S(flags, x, y)) & (INTERNE | FOND)) != (INTERNE | FOND))
+		&& (((flags_E(flags, x, y) ^ flags_O(flags, x, y)) & (INTERNE | FOND)) != (INTERNE | FOND)))
 	{
 		return(1);
 	}

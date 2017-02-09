@@ -88,6 +88,19 @@ int main(int argc, char const *argv[])
 		}
 		squelettisation(transformee, flags);
 
+
+
+		for(i = 0; i < imgHeight; i++)
+		{
+			for(j = 0; j < imgWidth; j++)
+			{
+				printf("%2d ", (flags[i][j]&SQUELETTE)/16);
+			}
+			printf("\n");
+		}
+
+
+
 		// Libération de l'image
 		for(i = 0; i < imgHeight; i++)
 		{
@@ -114,7 +127,7 @@ int main(int argc, char const *argv[])
 		free(flags);
 
 		// Simplification de Douglas-Peucker;
-		simplification(vecteurs, seuil);
+		//simplification(vecteurs, seuil);
 
 		// Export vers un fichier .tex
 		print_tex(imgName, vecteurs);

@@ -15,6 +15,7 @@ test: $(NOM)
 	./$(NOM) o.bmp $(SEUIL)
 	./$(NOM) u.bmp $(SEUIL)
 	./$(NOM) x.bmp $(SEUIL)
+	./$(NOM) v.bmp $(SEUIL)
 
 main.o: main.c
 	$(CC) -c main.c
