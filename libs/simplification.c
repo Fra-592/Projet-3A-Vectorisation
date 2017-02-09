@@ -1,20 +1,6 @@
 #include "simplification.h"
 #include <stdlib.h>
 
-int longueur(tp_vect vecteur)
-{
-	int cpt;
-
-	cpt = 0;
-	while(vecteur->suiv)
-	{
-		cpt++;
-		vecteur = vecteur->suiv;
-	}
-	return(cpt);
-}
-
-
 float distance(int a, int b, int x, int y)
 {
 	float result;
@@ -22,12 +8,11 @@ float distance(int a, int b, int x, int y)
 	return(result);
 }
 
-
 void douglas_peucker(tp_vect vecteur, int fin, int seuil)
 {
 	tp_vect vect_save = vecteur, vect_temp;
 	int x1, y1, x2, y2, i_max, i;
-	float a, b, max_dist, dist, len;
+	float a, b, max_dist, dist;
 
 	// Détermination de l'équation de la droite sous la forme y = a*x + b <=> a*x - y + b = 0
 	x1 = vecteur->x;
@@ -40,7 +25,6 @@ void douglas_peucker(tp_vect vecteur, int fin, int seuil)
 	y2 = vecteur->y;
 	a = (float)(y2 - y1)/(x2 - x1);
 	b = (y1 - a*x1);
-	len = sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 
 	// Détermination du point le plus éloigné et de sa distance à la droite
 	vecteur = vect_save->suiv;
@@ -56,21 +40,22 @@ void douglas_peucker(tp_vect vecteur, int fin, int seuil)
 		}
 		vecteur = vecteur->suiv;
 	}
-	vecteur = vect_save;
 
 	// Si on peut simplifier directement
-	if(max_dist < (((float)seuil/100)*len))
+	if(max_dist < ((float)seuil/50))
 	{
+		vecteur = vect_save->suiv;
 		while(vecteur->suiv)
 		{
 			vect_temp = vecteur;
 			vecteur = vecteur->suiv;
-			//free(vect_temp);
+			free(vect_temp);
 		}
 		vect_save->suiv = vecteur;
 	}
 	else
 	{
+		vecteur = vect_save;
 		for(i = 0; i < i_max; i++)
 		{
 			vecteur = vecteur->suiv;
@@ -89,19 +74,12 @@ void douglas_peucker(tp_vect vecteur, int fin, int seuil)
 	return;
 }
 
-
 void simplification(tp_vects liste, int seuil)
 {
 	tp_vect vect;
-	int len;
 	while(liste)
 	{
-		vect = liste->vecteur;
-		len = longueur(vect);
-		if(len > 1)
-		{
-			douglas_peucker(liste->vecteur, len, seuil);
-		}
+		douglas_peucker(liste->vecteur, taille(liste->vecteur), seuil);
 		liste = liste->suiv;
 	}
 }

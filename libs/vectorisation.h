@@ -1,6 +1,7 @@
 #ifndef _VECTORISATION_H
 	#define _VECTORISATION_H
 	#include "squelettisation.h"
+	#include <math.h>
 	#include "transformee.h" //Pour avoir min et max
 /*
 	Définition des vecteurs
@@ -26,12 +27,12 @@
 */
 	tp_vect ajouter_point(tp_vect vecteur, int x, int y);
 	tp_vect creer_vecteur();
-	int longueur(tp_vect vecteur);
+	int taille(tp_vect vecteur);
 
 /*
 	Extrait les différents vecteurs à partir de la matrice de flags
 */
-	tp_vects extraire_vecteurs(t_flag **flags);
+	tp_vects extraire_vecteurs(t_flag **flags, int seuil);
 
 
 	extern int imgHeight;

@@ -105,7 +105,7 @@ int main(int argc, char const *argv[])
 
 
 		tp_vects vecteurs;
-		vecteurs = extraire_vecteurs(flags);
+		vecteurs = extraire_vecteurs(flags, seuil);
 
 		// Libération du tableau de flags
 		for(i = 0; i < imgHeight; i++)
@@ -115,7 +115,7 @@ int main(int argc, char const *argv[])
 		free(flags);
 
 		// Simplification de Douglas-Peucker;
-		//simplification(vecteurs, seuil);
+		simplification(vecteurs, seuil);
 
 		// Export vers un fichier .tex
 		print_tex(imgName, vecteurs);

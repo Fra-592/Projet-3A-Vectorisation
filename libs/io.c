@@ -154,7 +154,7 @@ void print_tex(const char *name, tp_vects vecteurs)
 			point2 = point1->suiv;
 			if(point1 && point2)
 			{
-				fprintf(texFile, "\\draw (%d, %d) -- (%d, %d);\n", point1->x, imgHeight-(point1->y), point2->x, imgHeight-(point2->y));
+				fprintf(texFile, "\\draw (%d, %d) -- (%d, %d);\n", point1->y, imgHeight-(point1->x), point2->y, imgHeight-(point2->x));
 			}
 			point1 = point2;
 		}

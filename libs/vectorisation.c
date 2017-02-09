@@ -40,7 +40,7 @@ tp_vect ajouter_point(tp_vect vecteur, int x, int y)
 	return(temp);
 }
 
-int longueur(tp_vect vecteur)
+int taille(tp_vect vecteur)
 {
 	int cpt;
 
@@ -52,6 +52,16 @@ int longueur(tp_vect vecteur)
 	}
 	return(cpt);
 }
+
+
+float longueur(tp_vect vecteur)
+{
+	int x1, x2, y1, y2;
+	float len;
+	len = sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+	return(len);
+}
+
 
 int nb_voisins(t_flag **flags, int *x, int *y)
 {
@@ -92,13 +102,11 @@ tp_vect prochain_point(t_flag **flags, tp_vect vecteur, int x, int y)
 	{
 		flags[x][y] = flags[x][y] ^ SQUELETTE;
 		vecteur = ajouter_point(vecteur, x, y);
-		vecteur = prochain_point(flags, vecteur, i, j);
-		flags[x][y] = flags[x][y] ^ SQUELETTE;
 	}
 	return(vecteur);
 }
 
-tp_vects extraire_vecteurs(t_flag **flags)
+tp_vects extraire_vecteurs(t_flag **flags, int seuil)
 {	
 		tp_vects liste;
 		tp_vect vecteur;
@@ -114,7 +122,8 @@ tp_vects extraire_vecteurs(t_flag **flags)
 					vecteur = creer_vecteur();
 					vecteur = prochain_point(flags, vecteur, i, j);
 					
-					if(longueur(vecteur) == 0)
+					if((taille(vecteur) == 0)
+						|| (longueur(vecteur) <= (float)seuil/25))
 					{
 						free(vecteur);
 					}
