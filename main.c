@@ -54,6 +54,7 @@ int main(int argc, char const *argv[])
 			image[i] = malloc(imgWidth * sizeof(int));
 		}
 		get_image_pixels(imgName, image);
+		chdir("..");
 
 
 		//Création de la matrice qui va contenir la transformée en distance

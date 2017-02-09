@@ -1,9 +1,6 @@
 #include <malloc.h>
 #include "vectorisation.h"
 
-extern int imgHeight;
-extern int imgWidth;
-
 // ADT liste de vecteurs
 tp_vects creer_liste()
 {

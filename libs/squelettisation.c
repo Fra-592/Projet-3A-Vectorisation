@@ -1,8 +1,5 @@
 #include "squelettisation.h"
 
-extern int imgHeight;
-extern int imgWidth;
-
 int max_dist(int **matrice)
 {
 	int i;

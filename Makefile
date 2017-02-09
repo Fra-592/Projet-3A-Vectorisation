@@ -38,6 +38,7 @@ simplification.o: $(LIBS_DIR)/simplification.c $(LIBS_DIR)/simplification.h vect
 
 clean: *.o
 	rm *.o
+	rm *.tex
 
 reset: clean
 	rm $(NOM)

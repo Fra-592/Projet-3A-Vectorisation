@@ -13,4 +13,7 @@
 	La matrice de flags résultante est inscrite dans la matrice dont l'adresse est fournie par le second pointeur
 */
 	void squelettisation(int **transformee, t_flag **flags);
+
+	extern int imgHeight;
+	extern int imgWidth;
 #endif

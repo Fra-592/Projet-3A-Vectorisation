@@ -1,11 +1,6 @@
 #include "transformee.h"
 #include <malloc.h>
 
-
-extern int imgHeight;
-extern int imgWidth;
-
-
 int min(int x, int y)
 {
 	if(x >= y)

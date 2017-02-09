@@ -31,4 +31,8 @@
 	Extrait les différents vecteurs à partir de la matrice de flags
 */
 	tp_vects extraire_vecteurs(t_flag **flags);
+
+
+	extern int imgHeight;
+	extern int imgWidth;
 #endif

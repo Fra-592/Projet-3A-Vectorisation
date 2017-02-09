@@ -1,6 +1,7 @@
 #ifndef _IO_H
 	#define _IO_H
 	#include "vectorisation.h" // Pour les types tp_vect et tp_vects
+	#include "bmp_worker.h"
 	
 /*
 	Liste les images disponibles dans le dossier img/
@@ -34,4 +35,6 @@
 */
 	void print_tex(const char *name, tp_vects vecteurs);
 
+	extern int imgHeight;
+	extern int imgWidth;
 #endif

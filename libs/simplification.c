@@ -1,6 +1,4 @@
 #include "simplification.h"
-#include <assert.h>
-#include <stdio.h>
 
 int longueur(tp_vect vecteur)
 {

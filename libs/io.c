@@ -3,8 +3,6 @@
 #include <dirent.h>
 #include <string.h>
 #include <unistd.h>
-
-#include "bmp_worker.h"
 #include "io.h"
 
 void list_images(void)
@@ -38,7 +36,7 @@ int get_image_width(const char *imgName)
 	BmpWorker_InfoHeader_read(imgFile, infoHeader);
 	int imgWidth = infoHeader->img_width;
 
-	//Libération de mémoire
+	// Libération de mémoire
 	free(infoHeader);
 	fclose(imgFile);
 	return(imgWidth);
@@ -53,7 +51,7 @@ int get_image_height(const char *imgName)
 	BmpWorker_InfoHeader_read(imgFile, infoHeader);
 	int imgHeight = infoHeader->img_height;
 
-	//Libération de mémoire
+	// Libération de mémoire
 	free(infoHeader);
 	fclose(imgFile);
 	return(imgHeight);
@@ -88,7 +86,7 @@ int is_valid_img(const char *imgName)
     	return(0);
     }
 
-    //Libération de mémoire
+    // Libération de mémoire
     free(pData);
     free(fileHeader);
     free(infoHeader);
@@ -101,7 +99,7 @@ void get_image_pixels(const char *imgName, int **image)
 {
 	FILE *imgFile = fopen(imgName, "rb+");
 
-	//Lecture des headers
+	// Lecture des headers
     BmpWorker_fileHeader *fileHeader = (BmpWorker_fileHeader *) malloc(sizeof(BmpWorker_fileHeader));
 	BmpWorker_infoHeader *infoHeader = (BmpWorker_infoHeader *) malloc(sizeof(BmpWorker_infoHeader));
 	
@@ -111,7 +109,7 @@ void get_image_pixels(const char *imgName, int **image)
     uint32_t imgWidth = infoHeader->img_width;
     uint32_t imgHeight = infoHeader->img_height;
 
-	//Lecture des données de l'image
+	// Lecture des données de l'image
     uint8_t *pData = (uint8_t *) malloc(infoHeader->bmp_bytesz * sizeof(uint8_t));
 
     BmpWorker_RawData_read(imgFile, fileHeader, infoHeader, pData);
@@ -130,7 +128,7 @@ void get_image_pixels(const char *imgName, int **image)
     	}
     }
 
-    //Libération de mémoire
+    // Libération de mémoire
     free(infoHeader);
     free(fileHeader);
     free(pData);
@@ -140,5 +138,30 @@ void get_image_pixels(const char *imgName, int **image)
 
 void print_tex(const char *name, tp_vects vecteurs)
 {
-	//TODO
+	tp_vect point1, point2;
+	strcat(name, ".tex");
+	FILE *texFile = fopen(name, "w");
+
+	// Introduction du document
+	fprintf(texFile, "\\documentclass{article}\n\\usepackage{tickz}\n\\begin{document}\n\\begin{tikzpicture}\n");
+
+	while(vecteurs)
+	{
+		point1 = vecteurs->vecteur;
+		point2 = NULL;
+		while(point1->suiv)
+		{
+			point2 = point1->suiv;
+			if(point1 && point2)
+			{
+				fprintf(texFile, "\\draw (%d, %d) -- (%d, %d)\n", imgWidth - point1->x, imgHeight - point1->y, imgWidth - point2->x, imgHeight - point2->y);
+			}
+			point1 = point2;
+		}
+		vecteurs = vecteurs->suiv;
+	}
+
+	// Fin du document
+	fprintf(texFile, "\\end{tikzpicture}\n\\end{document}");
+	fclose(texFile);
 }
