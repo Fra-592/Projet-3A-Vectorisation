@@ -89,18 +89,6 @@ int main(int argc, char const *argv[])
 		squelettisation(transformee, flags);
 
 
-
-		for(i = 0; i < imgHeight; i++)
-		{
-			for(j = 0; j < imgWidth; j++)
-			{
-				printf("%2d ", (flags[i][j]&SQUELETTE)/16);
-			}
-			printf("\n");
-		}
-
-
-
 		// Libération de l'image
 		for(i = 0; i < imgHeight; i++)
 		{
