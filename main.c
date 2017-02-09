@@ -93,50 +93,19 @@ int main(int argc, char const *argv[])
 		{
 			free(image[i]);
 		}
-
 		free(image);
 
-
-		printf("\n");
-		for(i = 0; i < imgHeight; i++)
-		{
-			for(j = 0; j < imgWidth; j++)
-			{
-				printf("%2d ",transformee[i][j]);
-			}
-			printf("\n");
-		}
 		// Libération de la transformée en distance
 		for(i = 0; i < imgHeight; i++)
 		{
 			free(transformee[i]);
 		}
-
 		free(transformee);
-		
-		printf("\n");
-		for(i = 0; i < imgHeight; i++)
-		{
-			for(j = 0; j < imgWidth; j++)
-			{
-				printf("%2d ",flags[i][j]/16);
-			}
-			printf("\n");
-		}
 
-		
+
 		tp_vects vecteurs;
 		vecteurs = extraire_vecteurs(flags);
 
-
-		tp_vects vect = vecteurs;
-		i = 0;
-		while(vect)
-		{
-			i++;
-			vect = vect->suiv;
-		}
-		printf("%d vecteurs trouvés\n", i);
 		// Libération du tableau de flags
 		for(i = 0; i < imgHeight; i++)
 		{
@@ -151,8 +120,7 @@ int main(int argc, char const *argv[])
 		print_tex(imgName, vecteurs);
 
 		//Libération des vecteurs
-		/*tp_vects */
-		vect = vecteurs;
+		tp_vects vect = vecteurs;
 		tp_vect point, point2;
 		while(vect)
 		{

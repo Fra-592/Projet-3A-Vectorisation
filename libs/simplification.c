@@ -1,4 +1,5 @@
 #include "simplification.h"
+#include <stdio.h>
 
 int longueur(tp_vect vecteur)
 {
@@ -18,6 +19,7 @@ float distance(int a, int b, int x, int y)
 {
 	float result;
 	result = (float)fabs(a * x - y + b)/sqrt(a*a + 1);
+	printf("a:%d b:%d x:%d y:%d Distance: %f\n",a,b,x,y,result);
 	return(result);
 }
 
@@ -58,7 +60,7 @@ void douglas_peucker(tp_vect vecteur, int fin, int seuil)
 	vecteur = vect_save;
 
 	// Si on peut simplifier directement
-	if(max_dist < (seuil/100)*len)
+	if(max_dist < (((float)seuil/100)*len))
 	{
 		while(vecteur->suiv)
 		{
@@ -92,7 +94,7 @@ void simplification(tp_vects liste, int seuil)
 {
 	tp_vect vect;
 	int len;
-	while(liste->suiv)
+	while(liste)
 	{
 		vect = liste->vecteur;
 		len = longueur(vect);

@@ -36,9 +36,9 @@ vectorisation.o: $(LIBS_DIR)/vectorisation.c $(LIBS_DIR)/vectorisation.h squelet
 simplification.o: $(LIBS_DIR)/simplification.c $(LIBS_DIR)/simplification.h vectorisation.o
 	$(CC) -c $(LIBS_DIR)/simplification.c
 
-clean: *.o
+clean:
 	rm -f *.o
-	rm -f *.tex
 
 reset: clean
+	rm -f *.tex
 	rm -f $(NOM)
