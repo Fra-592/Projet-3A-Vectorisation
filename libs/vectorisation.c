@@ -33,8 +33,8 @@ tp_vect ajouter_point(tp_vect vecteur, int x, int y)
 
 	temp = malloc(sizeof(t_vect));
 
-	temp->x = x;
-	temp->y = y;
+	temp->x = y;
+	temp->y = x;
 	temp->suiv = vecteur;
 
 	return(temp);

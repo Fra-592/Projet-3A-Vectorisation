@@ -121,14 +121,12 @@ void squelettisation(int **transformee, t_flag **flags)
 {
 	int max, dist;
 	int x, y;
-	int compteur;
 
 	max = max_dist(transformee);
 	
-	for(dist = 1; dist <= max && compteur; dist++)
+	for(dist = 1; dist <= max; dist++)
 	{
 		// Actualisation des contours
-		compteur = 0;
 		for(x = 0; x < imgHeight; x++)
 		{
 			for(y = 0; y < imgWidth; y++)
@@ -136,7 +134,6 @@ void squelettisation(int **transformee, t_flag **flags)
 				if(transformee[x][y] == dist)
 				{
 					flags[x][y] = flags[x][y] | CONTOUR;
-					compteur += 1;
 				}
 				else if(transformee[x][y] > dist)
 				{
@@ -159,7 +156,6 @@ void squelettisation(int **transformee, t_flag **flags)
 					if(multiple(flags, x, y))
 					{
 						flags[x][y] = flags[x][y] | MULTIPLE;
-						compteur -= 1;
 					}
 				}
 			}
