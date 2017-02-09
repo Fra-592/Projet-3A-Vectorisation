@@ -1,4 +1,5 @@
 #include "simplification.h"
+#include <stdlib.h>
 
 int longueur(tp_vect vecteur)
 {
@@ -64,25 +65,26 @@ void douglas_peucker(tp_vect vecteur, int fin, int seuil)
 		{
 			vect_temp = vecteur;
 			vecteur = vecteur->suiv;
+			//free(vect_temp);
 		}
 		vect_save->suiv = vecteur;
 	}
 	else
 	{
-		if(i_max > 1)
-		{
-			douglas_peucker(vecteur, i_max, seuil);
-		}
 		for(i = 0; i < i_max; i++)
 		{
 			vecteur = vecteur->suiv;
 		}
-		i_max = fin - i_max;
+		if((fin - i_max)> 1)
+		{
+			douglas_peucker(vecteur,fin - i_max, seuil);
+		}
 
 		if(i_max > 1)
 		{
-			douglas_peucker(vecteur, i_max, seuil);
+			douglas_peucker(vect_save, i_max, seuil);
 		}
+		
 	}
 	return;
 }
@@ -96,9 +98,9 @@ void simplification(tp_vects liste, int seuil)
 	{
 		vect = liste->vecteur;
 		len = longueur(vect);
-		if(len > 2)
+		if(len > 1)
 		{
-			douglas_peucker(vect, len, seuil);
+			douglas_peucker(liste->vecteur, len, seuil);
 		}
 		liste = liste->suiv;
 	}

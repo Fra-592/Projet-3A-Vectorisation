@@ -1,7 +1,7 @@
 NOM = vectorisation
 LIBS_DIR = libs
 CC = gcc
-SEUIL = 75
+SEUIL = 100
 
 
 $(NOM): main.o bmp_worker.o io.o squelettisation.o transformee.o vectorisation.o simplification.o
@@ -10,6 +10,7 @@ $(NOM): main.o bmp_worker.o io.o squelettisation.o transformee.o vectorisation.o
 test: $(NOM)
 	./$(NOM) ligne.bmp $(SEUIL)
 	./$(NOM) lignes.bmp $(SEUIL)
+	./$(NOM) lignes2.bmp $(SEUIL)
 	./$(NOM) triangle.bmp $(SEUIL)
 	./$(NOM) o.bmp $(SEUIL)
 	./$(NOM) u.bmp $(SEUIL)

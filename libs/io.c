@@ -139,7 +139,7 @@ void get_image_pixels(const char *imgName, int **image)
 void print_tex(const char *name, tp_vects vecteurs)
 {
 	tp_vect point1, point2;
-	strcat(name, ".tex");
+	strcat((char * restrict)name, ".tex");
 	FILE *texFile = fopen(name, "w");
 
 	// Introduction du document
@@ -154,7 +154,7 @@ void print_tex(const char *name, tp_vects vecteurs)
 			point2 = point1->suiv;
 			if(point1 && point2)
 			{
-				fprintf(texFile, "\\draw (%d, %d) -- (%d, %d)\n", imgWidth - point1->x, imgHeight - point1->y, imgWidth - point2->x, imgHeight - point2->y);
+				fprintf(texFile, "\\draw (%d, %d) -- (%d, %d)\n", imgWidth - (point1->x), imgHeight - (point1->y), imgWidth - (point2->x), imgHeight - (point2->y));
 			}
 			point1 = point2;
 		}
