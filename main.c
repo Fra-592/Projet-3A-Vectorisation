@@ -56,6 +56,15 @@ int main(int argc, char const *argv[])
 		get_image_pixels(imgName, image);
 		chdir("..");
 
+		for(i = 0; i < imgHeight; i++)
+		{
+			for(j = 0; j < imgWidth; j++)
+			{
+				printf("%d ", image[i][j]);
+			}
+			printf("\n");
+		}
+		printf("\n");
 
 		//Création de la matrice qui va contenir la transformée en distance
 		int **transformee;
@@ -72,6 +81,15 @@ int main(int argc, char const *argv[])
 		}
 		transformee_distance(image, transformee);
 
+		for(i = 0; i < imgHeight; i++)
+		{
+			for(j = 0; j < imgWidth; j++)
+			{
+				printf("%d ", transformee[i][j]);
+			}
+			printf("\n");
+		}
+		printf("\n");
 
 		//Création du tableau de flags
 		t_flag **flags;
@@ -87,6 +105,16 @@ int main(int argc, char const *argv[])
 			}
 		}
 		squelettisation(transformee, flags);
+
+		for(i = 0; i < imgHeight; i++)
+		{
+			for(j = 0; j < imgWidth; j++)
+			{
+				printf("%d ", (flags[i][j] & SQUELETTE) == SQUELETTE);
+			}
+			printf("\n");
+		}
+		printf("\n");
 
 
 		// Libération de l'image
